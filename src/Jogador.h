@@ -17,7 +17,6 @@ private:
     const int frameMax = 9;
     float frameTime = 0.15f;
     float frameClock = 0.0f;
-
     int direcao = 2; // 0 = Cima, 1 = Esquerda, 2 = Baixo, 3 = Direita
 
 public:

@@ -18,16 +18,36 @@ Inimigo::Inimigo(float x, float y) {
 // Método para ele seguir o jogador
 void Inimigo::seguir(sf::Vector2f posJogador, float deltaTime) {
     sf::Vector2f posInimigo = sprite.getPosition();
-    sf::Vector2f direcao = posJogador - posInimigo;
+    sf::Vector2f direcaoVetor = posJogador - posInimigo;
 
     // Normalização do vetor direção
-    float comprimento = std::sqrt(direcao.x * direcao.x + direcao.y * direcao.y);
+    float comprimento = std::sqrt(direcaoVetor.x * direcaoVetor.x + direcaoVetor.y * direcaoVetor.y);
     if (comprimento != 0) {
-        direcao /= comprimento;
+        direcaoVetor /= comprimento;
+    }
+
+    // Atualizar a direção do sprite com base no movimento
+    if (std::abs(direcaoVetor.x) > std::abs(direcaoVetor.y)) {
+        inimigoDirecao = (direcaoVetor.x > 0) ? 3 : 1; // Direita ou Esquerda
+    } else {
+        inimigoDirecao = (direcaoVetor.y > 0) ? 2 : 0; // Baixo ou Cima
     }
 
     // Move o inimigo na direção do jogador
-    sprite.move(direcao * velocidade * deltaTime);
+    sprite.move(direcaoVetor * velocidade * deltaTime);
+
+    // Atualizar a animação
+    inimigoFrameClock += deltaTime;
+    if (inimigoFrameClock >= inimigoFrameTime) {
+        inimigoFrameClock = 0.0f;
+        inimigoFrameIndex = (inimigoFrameIndex + 1) % inimigoFrameMax;
+    }
+
+    // Aplicar o frame correto à textura
+    sprite.setTextureRect(sf::IntRect(inimigoFrameIndex * 64, inimigoDirecao * 64, 64, 64));
+
+    std::cout << "Posição do Inimigo: " << sprite.getPosition().x << ", " << sprite.getPosition().y << std::endl;
+
 }
 
 // Método para obter o sprite do inimigo
