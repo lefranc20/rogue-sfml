@@ -1,2 +1,4 @@
+um jogo em sfml
+
 # Compilação
-Compile e rode com: `make clean` e `make run`
+Compile e rode com: `make` e `make run` (`make clean` para limpar)
