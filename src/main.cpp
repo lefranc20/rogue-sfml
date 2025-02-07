@@ -53,8 +53,10 @@ int main(){
 	int direcao = 2; // 0 = Cima, 1 = Esquerda, 2 = Baixo, 3 = Direita
 	sf::Clock clock;
 	
-	// Outros
+	// Configurações extras de tela
 	sf::FloatRect player_bounds = playerSprite.getGlobalBounds();
+	sf::View view(sf::FloatRect(0.f, 0.f, JANELA_LARGURA, JANELA_ALTURA));  // Define a view com resolução fixa
+    janela.setView(view);  // Define a view na janela
 
 	// loop principal do jogo
 	while(janela.isOpen()){
@@ -67,6 +69,13 @@ int main(){
 				janela.close();
 			}
 		}
+
+        // Ajuste da View para redimensionamento
+        sf::Vector2u tamanhoJanela = janela.getSize();
+        float aspectRatio = static_cast<float>(tamanhoJanela.x) / static_cast<float>(tamanhoJanela.y);  // Relação de aspecto da janela
+        view.setSize(JANELA_LARGURA * aspectRatio, JANELA_ALTURA);  // Ajusta o tamanho da view conforme a relação de aspecto
+        view.setCenter(JANELA_LARGURA / 2, JANELA_ALTURA / 2);  // Centraliza a view
+        janela.setView(view);  // Aplica a view à janela
 
 		sf::Vector2f posicao = playerSprite.getPosition(); // Obtém posição atual do jogador
 		bool isMoving = false; // Indica se o jogador está se movendo

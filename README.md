@@ -1,2 +1,2 @@
 # Compilação
-Compile e rode com: `make` e `make clean`
+Compile e rode com: `make clean` e `make run`
