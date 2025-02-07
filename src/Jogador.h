@@ -24,6 +24,7 @@ public:
     Jogador();
     void atualizar(float deltaTime);
     sf::Sprite& getSprite();
+    sf::Vector2f getPosicao();
 };
 
 #endif

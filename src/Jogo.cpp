@@ -1,7 +1,8 @@
 #include "Jogo.h"
 #include <iostream>
 
-Jogo::Jogo() : janela(sf::VideoMode(JANELA_LARGURA, JANELA_ALTURA), "Jogo em SFML!") {
+Jogo::Jogo() : janela(sf::VideoMode(JANELA_LARGURA, JANELA_ALTURA), "Jogo em SFML!"), inimigo(100.f, 100.f) 
+{
     if (!texturaChao.loadFromFile("assets/Ground_01.png")) {
         std::cerr << "Erro ao carregar textura do chão!" << std::endl;
     }
@@ -31,11 +32,17 @@ void Jogo::processarEventos() {
 
 void Jogo::atualizar(float deltaTempo) {
     jogador.atualizar(deltaTempo);
+
+    // Obtém a posição do jogador e faz o inimigo segui-lo
+    sf::Vector2f posJogador = jogador.getPosicao();
+    inimigo.seguir(posJogador, deltaTempo);
+
 }
 
 void Jogo::renderizar() {
     janela.clear();
     janela.draw(chao);
+    janela.draw(inimigo.getSprite());
     janela.draw(jogador.getSprite());
     janela.display();
 }

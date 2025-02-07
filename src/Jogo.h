@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include "Jogador.h"
+#include "Inimigo.h"
+
 
 class Jogo {
 public:
@@ -18,6 +20,7 @@ private:
     sf::Texture texturaChao;
     sf::RectangleShape chao;
     Jogador jogador;
+    Inimigo inimigo;
 };
 
 #endif // JOGO_H

@@ -2,7 +2,7 @@
 
 // Construtor: Inicializa posição, textura e sprite
 Jogador::Jogador() {
-    if (!textura.loadFromFile("assets/BODY_skeleton.png")) {
+    if (!textura.loadFromFile("assets/jogador.png")) {
         std::cerr << "Erro ao carregar textura do jogador!" << std::endl;
     }
     sprite.setTexture(textura);
@@ -70,4 +70,9 @@ void Jogador::atualizar(float deltaTime) {
 // Retorna o sprite para ser desenhado no jogo
 sf::Sprite& Jogador::getSprite() {
     return sprite;
+}
+
+// Método para pegar a posição do jogador. Utilizado para o cálculo de movimento do Inimigo até ele.
+sf::Vector2f Jogador::getPosicao() {
+    return sprite.getPosition();
 }
