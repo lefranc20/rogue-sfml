@@ -1,6 +1,6 @@
 #include "Jogador.h"
 
-// Construtor: Inicializa posição, textura e sprite
+// CONSTRUTOR: Inicializa posição, textura e sprite
 Jogador::Jogador() {
     if (!textura.loadFromFile("assets/jogador.png")) {
         std::cerr << "Erro ao carregar textura do jogador!" << std::endl;
@@ -25,22 +25,22 @@ void Jogador::atualizar(float deltaTime) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
         novaPosicao.x -= velocidade * deltaTime;
         isMoving = true;
-        direcao = 1;
+        direcao = 1; // Esquerda
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         novaPosicao.y -= velocidade * deltaTime;
         isMoving = true;
-        direcao = 0;
+        direcao = 0; // Cima
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         novaPosicao.y += velocidade * deltaTime;
         isMoving = true;
-        direcao = 2;
+        direcao = 2; // Baixo
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         novaPosicao.x += velocidade * deltaTime;
         isMoving = true;
-        direcao = 3;
+        direcao = 3; // Direita
     }
 
     // Colisões com a borda da tela
@@ -54,7 +54,7 @@ void Jogador::atualizar(float deltaTime) {
     // Aplica a nova posição ao sprite
     sprite.setPosition(novaPosicao);
 
-    // Animação
+    // atualiza a animação APENAS caso o jogador esteja se movendo
     if (isMoving) {
         frameClock += deltaTime;
         if (frameClock >= frameTime) {
@@ -63,7 +63,15 @@ void Jogador::atualizar(float deltaTime) {
         }
         sprite.setTextureRect(sf::IntRect(frameIndex * 64, direcao * 64, 64, 64));
     } else {
+        // Reseta para o primeiro quadro da animação de idle
+        frameIndex = 0;
         sprite.setTextureRect(sf::IntRect(0, direcao * 64, 64, 64));
+    }
+
+    // Atualiza posição e animação dos equipamentos, como o frameIndex fica em 0 com o jogqdor parado, ele não troca o frame do equipamento
+    for (auto& equipamento : spritesEquipamentos) {
+        equipamento.setPosition(novaPosicao);
+        equipamento.setTextureRect(sf::IntRect(frameIndex * 64, direcao * 64, 64, 64));
     }
 }
 
@@ -75,4 +83,26 @@ sf::Sprite& Jogador::getSprite() {
 // Método para pegar a posição do jogador. Utilizado para o cálculo de movimento do Inimigo até ele.
 sf::Vector2f Jogador::getPosicao() {
     return sprite.getPosition();
+}
+
+// retorna os sprites dos equipamentos
+const std::vector<sf::Sprite>& Jogador::getEquipamentos() const {
+    return spritesEquipamentos;
+}
+
+// Adiciona um equipamento ao jogador
+void Jogador::adicionarEquipamento(const std::string& caminhoTextura) {
+    std::shared_ptr<sf::Texture> texturaEquipamento = std::make_shared<sf::Texture>();
+    if (!texturaEquipamento->loadFromFile(caminhoTextura)) {
+        std::cerr << "Erro ao carregar textura do equipamento: " << caminhoTextura << std::endl;
+        return;
+    }
+
+    texturasEquipamentos.push_back(texturaEquipamento); // Armazena a textura
+
+    sf::Sprite spriteEquipamento;
+    spriteEquipamento.setTexture(*texturasEquipamentos.back()); // Usa ponteiro para manter a textura válida
+    spriteEquipamento.setTextureRect(sf::IntRect(0, 0, 64, 64));
+    spriteEquipamento.setScale(2.f, 2.f); // Mesmo tamanho do jogador
+    spritesEquipamentos.push_back(spriteEquipamento);
 }
