@@ -25,6 +25,7 @@ public:
     int getVidas() const; // Para acessar o número de vidas
     void perderVida(); // Reduz a vida do jogador
 
+    bool isGameOver() const { return gameOver; }
 
 private:
     sf::Texture textura;
@@ -44,8 +45,9 @@ private:
     int vidas = 3; // O jogador começa com 3 vidas
     sf::Font fonte; // Fonte para exibir as vidas na tela
     sf::Text textoVidas;
-    private:
     void atualizarTextoVidas();
+
+    bool gameOver = false;
 
 };
 

@@ -1,6 +1,9 @@
 #include "Jogo.h"
 #include <iostream>
 
+sf::Font fonteGameOver;
+sf::Text textoGameOver;
+
 Jogo::Jogo() : janela(sf::VideoMode(JANELA_LARGURA, JANELA_ALTURA), "Jogo em SFML!"), inimigo(100.f, 100.f) 
 {
     if (!texturaChao.loadFromFile("assets/Ground_01.png")) {
@@ -16,6 +19,7 @@ Jogo::Jogo() : janela(sf::VideoMode(JANELA_LARGURA, JANELA_ALTURA), "Jogo em SFM
     jogador.adicionarEquipamento("assets/equipamentos/FEET_shoes_brown.png"); // pés
     jogador.adicionarEquipamento("assets/equipamentos/BELT_leather.png"); // cinto
 
+    inicializarGameOver();
 }
 
 void Jogo::executar() {
@@ -50,11 +54,30 @@ void Jogo::atualizar(float deltaTempo) {
 void Jogo::renderizar() {
     janela.clear();
     janela.draw(chao);
-    janela.draw(inimigo.getSprite());
-    janela.draw(jogador.getSprite());
-    for (const auto& equipamento : jogador.getEquipamentos()) {
-        janela.draw(equipamento);
+
+    // se o jogo não acaboui, desenha o jogador e o inimigo
+    if (!jogador.isGameOver()) {
+        janela.draw(inimigo.getSprite());
+        janela.draw(jogador.getSprite());
+        for (const auto& equipamento : jogador.getEquipamentos()) {
+            janela.draw(equipamento);
+        }
+        janela.draw(jogador.getTextoVidas());
+    } else {
+        // Se o jogo acabou, desenha o texto "GAME OVER!!!@!@"
+        janela.draw(textoGameOver);
     }
-    janela.draw(jogador.getTextoVidas());
     janela.display();
+}
+
+void Jogo::inicializarGameOver() {
+    if (!fonteGameOver.loadFromFile("assets/VT323-Regular.ttf")) {
+        std::cerr << "Erro ao carregar fonte!" << std::endl;
+    }
+    textoGameOver.setFont(fonteGameOver);
+    textoGameOver.setString("GAME OVER");
+    textoGameOver.setCharacterSize(100);
+    textoGameOver.setFillColor(sf::Color::Red);
+    textoGameOver.setStyle(sf::Text::Bold);
+    textoGameOver.setPosition(JANELA_LARGURA / 2.f - 200.f, JANELA_ALTURA / 2.f - 50.f);
 }

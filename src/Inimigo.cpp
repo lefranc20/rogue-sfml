@@ -3,7 +3,6 @@
 #include <iostream>
 #include <ctime>    // Para seed do rand()
 
-
 // Construtor
 Inimigo::Inimigo(float x, float y) {
     if (!textura.loadFromFile("assets/inimigo.png")) {
@@ -14,7 +13,7 @@ Inimigo::Inimigo(float x, float y) {
     sprite.setScale(2.f, 2.f); // Aumenta o tamanho do sprite
     sprite.setPosition(x, y); // A posição é declarada no Jogo.cpp
 
-    velocidade = 100.0f; // Talvez mudar isso para outro local?
+    velocidade = 350.0f; // Talvez mudar isso para outro local?
 }
 
 // Método para ele seguir o jogador
@@ -22,7 +21,7 @@ void Inimigo::seguir(sf::Vector2f posJogador, float deltaTime, Jogador& jogador)
     sf::Vector2f posInimigo = sprite.getPosition();
     sf::Vector2f direcaoVetor = posJogador - posInimigo;
 
-    // Normalização do vetor direção
+    // Normalização do vetor direção = Serve para que ele tenha o seu comprimento igual a 1, ideal para conseguir a direção do mesmo 
     float comprimento = std::sqrt(direcaoVetor.x * direcaoVetor.x + direcaoVetor.y * direcaoVetor.y);
     if (comprimento != 0) {
         direcaoVetor /= comprimento;
@@ -34,7 +33,6 @@ void Inimigo::seguir(sf::Vector2f posJogador, float deltaTime, Jogador& jogador)
     if (distancia < 50.0f) { // Se estiver muito perto do jogador
         jogador.perderVida();
         respawn(); // faz o inimigo reaparecer em outro local aleatorio
-        return; // Não continua a movimentação para evitar perda excessiva de vidas rapidamente
     }
 
     // Atualizar a direção do sprite com base no movimento

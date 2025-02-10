@@ -5,6 +5,12 @@ Jogador::Jogador() {
     if (!textura.loadFromFile("assets/jogador.png")) {
         std::cerr << "Erro ao carregar textura do jogador!" << std::endl;
     }
+
+    /* ALTERAR A TEXTURA 
+    * A textura do jogador e inimigo ainda tem que ser alterada/modificada, ela possui cantos transparentes demasiadamente grandes, 
+    * que atrapalham, pois dá a impressão que se está colidindo com uma parede invisível, e não os cantos de colisão delimitados pela janela.
+    */
+
     sprite.setTexture(textura);
     sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
     sprite.setScale(2.f, 2.f); // Aumenta o tamanho do sprite
@@ -19,7 +25,6 @@ Jogador::Jogador() {
     textoVidas.setFillColor(sf::Color::White);
     textoVidas.setPosition(10.f, 10.f);
     atualizarTextoVidas();
-
 }
 
 // Atualiza a posição do jogador e a animação
@@ -135,7 +140,7 @@ void Jogador::perderVida() {
     }
     if (vidas == 0) {
         std::cout << "GAME OVER!" << std::endl;
-        // Aqui você pode adicionar lógica para reiniciar o jogo ou encerrar
+        gameOver = true; // Define o estado de Game Over, isso é checado no Jogo.cpp
     }
 }
 
