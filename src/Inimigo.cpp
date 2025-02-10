@@ -16,7 +16,7 @@ Inimigo::Inimigo(float x, float y) {
 }
 
 // Método para ele seguir o jogador
-void Inimigo::seguir(sf::Vector2f posJogador, float deltaTime) {
+void Inimigo::seguir(sf::Vector2f posJogador, float deltaTime, Jogador& jogador) {
     sf::Vector2f posInimigo = sprite.getPosition();
     sf::Vector2f direcaoVetor = posJogador - posInimigo;
 
@@ -24,6 +24,14 @@ void Inimigo::seguir(sf::Vector2f posJogador, float deltaTime) {
     float comprimento = std::sqrt(direcaoVetor.x * direcaoVetor.x + direcaoVetor.y * direcaoVetor.y);
     if (comprimento != 0) {
         direcaoVetor /= comprimento;
+    }
+
+    // Checagem de Vida do Jogador
+    float distancia = std::sqrt(std::pow(posJogador.x - sprite.getPosition().x, 2) +
+    std::pow(posJogador.y - sprite.getPosition().y, 2));
+    if (distancia < 50.0f) { // Se estiver muito perto do jogador
+        jogador.perderVida();
+        return; // Não continua a movimentação para evitar perda excessiva de vidas rapidamente
     }
 
     // Atualizar a direção do sprite com base no movimento
@@ -47,7 +55,6 @@ void Inimigo::seguir(sf::Vector2f posJogador, float deltaTime) {
     sprite.setTextureRect(sf::IntRect(inimigoFrameIndex * 64, inimigoDirecao * 64, 64, 64));
 
     std::cout << "Posição do Inimigo: " << sprite.getPosition().x << ", " << sprite.getPosition().y << std::endl;
-
 }
 
 // Método para obter o sprite do inimigo

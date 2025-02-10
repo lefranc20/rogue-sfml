@@ -9,6 +9,17 @@ Jogador::Jogador() {
     sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
     sprite.setScale(2.f, 2.f); // Aumenta o tamanho do sprite
     sprite.setPosition(400.f, 300.f); // Define a posição inicial
+
+    // Carregamento daa fonte e configuração do texto de vidas
+    if (!fonte.loadFromFile("assets/VT323-Regular.ttf")) {
+        std::cerr << "Erro ao carregar fonte!" << std::endl;
+    }
+    textoVidas.setFont(fonte);
+    textoVidas.setCharacterSize(24);
+    textoVidas.setFillColor(sf::Color::White);
+    textoVidas.setPosition(10.f, 10.f);
+    atualizarTextoVidas();
+
 }
 
 // Atualiza a posição do jogador e a animação
@@ -105,4 +116,29 @@ void Jogador::adicionarEquipamento(const std::string& caminhoTextura) {
     spriteEquipamento.setTextureRect(sf::IntRect(0, 0, 64, 64));
     spriteEquipamento.setScale(2.f, 2.f); // Mesmo tamanho do jogador
     spritesEquipamentos.push_back(spriteEquipamento);
+}
+
+// Atualiza o texto das vidas
+void Jogador::atualizarTextoVidas() {
+    std::stringstream ss;
+    ss << "Vidas: " << vidas;
+    textoVidas.setString(ss.str());
+}
+
+// Método para perder uma vida
+void Jogador::perderVida() {
+    if (vidas > 0) {
+        vidas--;
+        std::cout << "Jogador perdeu uma vida! Vidas restantes: " << vidas << std::endl;
+        atualizarTextoVidas();
+
+    }
+    if (vidas == 0) {
+        std::cout << "GAME OVER!" << std::endl;
+        // Aqui você pode adicionar lógica para reiniciar o jogo ou encerrar
+    }
+}
+
+int Jogador::getVidas() const {
+    return vidas;
 }

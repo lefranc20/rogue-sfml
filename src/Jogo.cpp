@@ -42,19 +42,19 @@ void Jogo::atualizar(float deltaTempo) {
 
     // Obtém a posição do jogador e faz o inimigo segui-lo
     sf::Vector2f posJogador = jogador.getPosicao();
-    inimigo.seguir(posJogador, deltaTempo);
+    inimigo.seguir(posJogador, deltaTempo, jogador);
 
 }
 
+// Renderiza tudo na tela
 void Jogo::renderizar() {
     janela.clear();
     janela.draw(chao);
     janela.draw(inimigo.getSprite());
     janela.draw(jogador.getSprite());
-
     for (const auto& equipamento : jogador.getEquipamentos()) {
         janela.draw(equipamento);
     }
-
+    janela.draw(jogador.getTextoVidas());
     janela.display();
 }

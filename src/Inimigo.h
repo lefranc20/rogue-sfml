@@ -2,11 +2,12 @@
 #define INIMIGO_H
 
 #include <SFML/Graphics.hpp>
+#include "Jogador.h" // necessário para a verificação de vidas
 
 class Inimigo {
 public:
     Inimigo(float x, float y);
-    void seguir(sf::Vector2f posJogador, float deltaTime);
+    void seguir(sf::Vector2f posJogador, float deltaTime, Jogador& jogador);
     sf::Sprite& getSprite();
     sf::Vector2f getPosicao();
 

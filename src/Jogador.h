@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <memory> // Para shared_ptr
-
+#include <sstream> // Necessário para converter número em string
 
 const unsigned JANELA_LARGURA = 800;
 const unsigned JANELA_ALTURA = 600;
@@ -20,6 +20,12 @@ public:
     const std::vector<sf::Sprite>& getEquipamentos() const;
     sf::Vector2f getPosicao();
 
+    // para as Vidas
+    const sf::Text& getTextoVidas() const { return textoVidas; }
+    int getVidas() const; // Para acessar o número de vidas
+    void perderVida(); // Reduz a vida do jogador
+
+
 private:
     sf::Texture textura;
     sf::Sprite sprite;
@@ -33,6 +39,14 @@ private:
     float frameTime = 0.15f;
     float frameClock = 0.0f;
     int direcao = 2; // 0 = Cima, 1 = Esquerda, 2 = Baixo, 3 = Direita
+
+    // Para o Sistema de Vidas
+    int vidas = 3; // O jogador começa com 3 vidas
+    sf::Font fonte; // Fonte para exibir as vidas na tela
+    sf::Text textoVidas;
+    private:
+    void atualizarTextoVidas();
+
 };
 
 #endif
