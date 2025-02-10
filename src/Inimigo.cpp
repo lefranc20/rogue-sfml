@@ -1,6 +1,8 @@
 #include "Inimigo.h"
 #include <cmath>
 #include <iostream>
+#include <ctime>    // Para seed do rand()
+
 
 // Construtor
 Inimigo::Inimigo(float x, float y) {
@@ -31,6 +33,7 @@ void Inimigo::seguir(sf::Vector2f posJogador, float deltaTime, Jogador& jogador)
     std::pow(posJogador.y - sprite.getPosition().y, 2));
     if (distancia < 50.0f) { // Se estiver muito perto do jogador
         jogador.perderVida();
+        respawn(); // faz o inimigo reaparecer em outro local aleatorio
         return; // Não continua a movimentação para evitar perda excessiva de vidas rapidamente
     }
 
@@ -65,4 +68,12 @@ sf::Sprite& Inimigo::getSprite() {
 // Método para pegar a posição do inimigo.
 sf::Vector2f Inimigo::getPosicao() {
     return sprite.getPosition();
+}
+
+// Método para reposicionar o inimigo em uma posição aleatória
+void Inimigo::respawn() {
+    float novoX = static_cast<float>(rand() % JANELA_LARGURA);
+    float novoY = static_cast<float>(rand() % JANELA_ALTURA);
+    
+    sprite.setPosition(novoX, novoY);
 }

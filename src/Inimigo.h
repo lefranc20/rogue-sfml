@@ -10,7 +10,8 @@ public:
     void seguir(sf::Vector2f posJogador, float deltaTime, Jogador& jogador);
     sf::Sprite& getSprite();
     sf::Vector2f getPosicao();
-
+    void respawn();
+    
 private:
     sf::Sprite sprite;
     sf::Texture textura;
