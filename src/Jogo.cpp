@@ -35,6 +35,9 @@ void Jogo::processarEventos() {
         if (evento.type == sf::Event::Closed) {
             janela.close();
         }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+            janela.close();
+        }
     }
 }
 

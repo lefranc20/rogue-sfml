@@ -13,7 +13,7 @@ Inimigo::Inimigo(float x, float y) {
     sprite.setScale(2.f, 2.f); // Aumenta o tamanho do sprite
     sprite.setPosition(x, y); // A posição é declarada no Jogo.cpp
 
-    velocidade = 350.0f; // Talvez mudar isso para outro local?
+    velocidade = 100.0f; // Talvez mudar isso para outro local?
 }
 
 // Método para ele seguir o jogador
