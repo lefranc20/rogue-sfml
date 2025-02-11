@@ -1,9 +1,6 @@
 #include "Jogo.h"
 #include <iostream>
 
-sf::Font fonteGameOver;
-sf::Text textoGameOver;
-
 Jogo::Jogo() : janela(sf::VideoMode(JANELA_LARGURA, JANELA_ALTURA), "Jogo em SFML!"), inimigo(100.f, 100.f) 
 {
     if (!texturaChao.loadFromFile("assets/Ground_01.png")) {
