@@ -2,6 +2,7 @@
 #define JOGO_H
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "Jogador.h"
 #include "Inimigo.h"
 

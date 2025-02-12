@@ -1,5 +1,4 @@
 #include "Jogo.h"
-#include <iostream>
 
 Jogo::Jogo() : janela(sf::VideoMode(JANELA_LARGURA, JANELA_ALTURA), "Jogo em SFML!"), inimigo(100.f, 100.f) 
 {

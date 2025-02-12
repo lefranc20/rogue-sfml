@@ -1,7 +1,4 @@
 #include "Inimigo.h"
-#include <cmath>
-#include <iostream>
-#include <ctime>    // Para seed do rand()
 
 // Construtor
 Inimigo::Inimigo(float x, float y) {

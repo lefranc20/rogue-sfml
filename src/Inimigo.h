@@ -3,6 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 #include "Jogador.h" // necessário para a verificação de vidas
+#include <cmath>
+#include <iostream>
+#include <ctime>    // Para seed do rand()
 
 class Inimigo {
 public:
