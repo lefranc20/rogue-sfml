@@ -22,9 +22,17 @@ Jogador::Jogador() {
     }
     textoVidas.setFont(fonte);
     textoVidas.setCharacterSize(24);
-    textoVidas.setFillColor(sf::Color::White);
+    textoVidas.setFillColor(sf::Color::Red);
     textoVidas.setPosition(10.f, 10.f);
     atualizarTextoVidas();
+
+    // Configuração do texto de pontos (praticamente a mesma coisa de cima)
+    textoPontos.setFont(fonte);
+    textoPontos.setCharacterSize(24);
+    textoPontos.setFillColor(sf::Color::Green);
+    textoPontos.setPosition(10.f, 40.f); // Colocando abaixo do texto de vidas
+    atualizarTextoPontos();
+
 }
 
 // Atualiza a posição do jogador e a animação
@@ -91,6 +99,8 @@ void Jogador::atualizar(float deltaTime) {
     }
 }
 
+
+
 // Retorna o sprite para ser desenhado no jogo
 sf::Sprite& Jogador::getSprite() {
     return sprite;
@@ -130,6 +140,19 @@ void Jogador::atualizarTextoVidas() {
     textoVidas.setString(ss.str());
 }
 
+// Método para atualizar o texto de pontuação
+void Jogador::atualizarTextoPontos() {
+    std::stringstream ss;
+    ss << "Pontos: " << pontos;
+    textoPontos.setString(ss.str());
+}
+
+// Incrementa a pontuação
+void Jogador::adicionarPontos() {
+    pontos++;
+    atualizarTextoPontos();  // Atualiza o texto de pontos
+}
+
 // Método para perder uma vida
 void Jogador::perderVida() {
     if (vidas > 0) {
@@ -146,4 +169,8 @@ void Jogador::perderVida() {
 
 int Jogador::getVidas() const {
     return vidas;
+}
+
+int Jogador::getPontos() const {
+    return pontos;
 }

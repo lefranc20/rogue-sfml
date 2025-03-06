@@ -64,6 +64,7 @@ void Jogo::atualizar(float deltaTempo) {
         // Verifica se o projétil acertou o inimigo
         if (it->getForma().getGlobalBounds().intersects(inimigo.getSprite().getGlobalBounds())) {
             inimigo.respawn(); // Respawn do inimigo ao ser atingido
+            jogador.adicionarPontos();  // Incrementa a pontuação
             it = projeteis.erase(it); // Remove o projétil da lista
         } else {
             ++it;
@@ -90,6 +91,7 @@ void Jogo::renderizar() {
         }
 
         janela.draw(jogador.getTextoVidas());
+        janela.draw(jogador.getTextoPontos());
 
         // Renderizar projéteis
         for (const auto& proj : projeteis) {

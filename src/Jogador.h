@@ -24,6 +24,11 @@ public:
     const sf::Text& getTextoVidas() const { return textoVidas; }
     int getVidas() const; // Para acessar o número de vidas
     void perderVida(); // Reduz a vida do jogador
+    
+    // para a Pontuação
+    const sf::Text& getTextoPontos() const { return textoPontos; } // Novo texto de pontos
+    int getPontos() const; // Para acessar os pontos
+    void adicionarPontos(); // Incrementa a pontuação
 
     bool isGameOver() const { return gameOver; }
 
@@ -47,8 +52,12 @@ private:
     sf::Text textoVidas;
     void atualizarTextoVidas();
 
-    bool gameOver = false;
+    // Para o Sistema de Pontos
+    int pontos = 0; // Inicializa aquiew como 0
+    sf::Text textoPontos; // Texto para exibir a pontuação
+    void atualizarTextoPontos();
 
+    bool gameOver = false;
 };
 
 #endif
