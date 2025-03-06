@@ -10,6 +10,7 @@ public:
     void atualizar(float deltaTempo);
     void desenhar(sf::RenderWindow& janela) const;
     bool foraDaTela(sf::Vector2u tamanhoJanela);
+    const sf::CircleShape& getForma() const { return forma; } // para a colisão com o inimigo
 
 private:
     sf::CircleShape forma;

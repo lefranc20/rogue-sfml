@@ -56,18 +56,25 @@ void Jogo::processarEventos() {
 
 void Jogo::atualizar(float deltaTempo) {
     jogador.atualizar(deltaTempo);
-    inimigo.seguir(jogador.getPosicao(), deltaTempo, jogador);
 
-    // Atualizar projéteis
-    for (auto it = projeteis.begin(); it != projeteis.end();) {
+    // Atualiza os projéteis
+    for (auto it = projeteis.begin(); it != projeteis.end(); ) {
         it->atualizar(deltaTempo);
-        if (it->foraDaTela(janela.getSize())) {
-            it = projeteis.erase(it); // Remove projétil se sair da tela
+
+        // Verifica se o projétil acertou o inimigo
+        if (it->getForma().getGlobalBounds().intersects(inimigo.getSprite().getGlobalBounds())) {
+            inimigo.respawn(); // Respawn do inimigo ao ser atingido
+            it = projeteis.erase(it); // Remove o projétil da lista
         } else {
             ++it;
         }
     }
+
+    // Faz o inimigo seguir o jogador
+    sf::Vector2f posJogador = jogador.getPosicao();
+    inimigo.seguir(posJogador, deltaTempo, jogador);
 }
+
 
 // Renderiza tudo na tela
 void Jogo::renderizar() {
