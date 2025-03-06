@@ -27,6 +27,7 @@ private:
 
     sf::Font fonteGameOver;
     sf::Text textoGameOver;
+    sf::Text textoMensagenzinha;
 };
 
 #endif // JOGO_H

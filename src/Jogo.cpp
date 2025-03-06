@@ -99,6 +99,7 @@ void Jogo::renderizar() {
         }
     } else {
         janela.draw(textoGameOver);
+        janela.draw(textoMensagenzinha);
     }
 
     janela.display();
@@ -114,4 +115,12 @@ void Jogo::inicializarGameOver() {
     textoGameOver.setFillColor(sf::Color::Red);
     textoGameOver.setStyle(sf::Text::Bold);
     textoGameOver.setPosition(JANELA_LARGURA / 2.f - 200.f, JANELA_ALTURA / 2.f - 50.f);
+
+    // "(Pressione ESC para sair)"
+    textoMensagenzinha.setFont(fonteGameOver);
+    textoMensagenzinha.setString("(Pressione ESC para sair)");
+    textoMensagenzinha.setCharacterSize(30);
+    textoMensagenzinha.setFillColor(sf::Color::White);
+    textoMensagenzinha.setStyle(sf::Text::Regular);
+    textoMensagenzinha.setPosition(JANELA_LARGURA / 2.f - 150.f, JANELA_ALTURA / 2.f + 50.f);
 }
