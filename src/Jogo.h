@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Jogador.h"
 #include "Inimigo.h"
+#include "Projetil.h"
 
 class Jogo {
 public:
@@ -22,6 +23,7 @@ private:
     sf::RectangleShape chao;
     Jogador jogador;
     Inimigo inimigo;
+    std::vector<Projetil> projeteis;
 
     sf::Font fonteGameOver;
     sf::Text textoGameOver;

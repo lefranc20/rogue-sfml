@@ -1,6 +1,6 @@
 # Definições básicas
 EXEC = rogue-sfml
-SRC = src/main.cpp src/Jogo.cpp src/Jogador.cpp src/Inimigo.cpp
+SRC = src/main.cpp src/Jogo.cpp src/Jogador.cpp src/Inimigo.cpp src/Projetil.cpp
 OBJ = $(SRC:.cpp=.o)
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall

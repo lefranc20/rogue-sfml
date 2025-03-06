@@ -14,12 +14,13 @@ Jogo::Jogo() : janela(sf::VideoMode(JANELA_LARGURA, JANELA_ALTURA), "Jogo em SFM
     jogador.adicionarEquipamento("assets/equipamentos/TORSO_leather_armor_shoulders.png"); // ombro
     jogador.adicionarEquipamento("assets/equipamentos/FEET_shoes_brown.png"); // pés
     jogador.adicionarEquipamento("assets/equipamentos/BELT_leather.png"); // cinto
-
+ 
     inicializarGameOver();
 }
 
 void Jogo::executar() {
     sf::Clock relogio;
+    std::vector<Projetil> projeteis;
     while (janela.isOpen()) {
         float deltaTempo = relogio.restart().asSeconds();
         processarEventos();
@@ -37,16 +38,35 @@ void Jogo::processarEventos() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
             janela.close();
         }
+
+        // Dispara um projétil ao clicar com o botão esquerdo do mouse
+        if (evento.type == sf::Event::MouseButtonPressed && evento.mouseButton.button == sf::Mouse::Left) {
+            sf::Vector2f posJogador = jogador.getPosicao(); // pegando a posição base do jogador
+
+            // Ajusta para o centro do sprite do jogador
+            posJogador.x += jogador.getSprite().getGlobalBounds().width / 2.f;
+            posJogador.y += jogador.getSprite().getGlobalBounds().height / 2.f;
+
+            sf::Vector2f destino = janela.mapPixelToCoords(sf::Mouse::getPosition(janela));
+
+            projeteis.emplace_back(posJogador, destino);
+        }
     }
 }
 
 void Jogo::atualizar(float deltaTempo) {
     jogador.atualizar(deltaTempo);
+    inimigo.seguir(jogador.getPosicao(), deltaTempo, jogador);
 
-    // Obtém a posição do jogador e faz o inimigo segui-lo
-    sf::Vector2f posJogador = jogador.getPosicao();
-    inimigo.seguir(posJogador, deltaTempo, jogador);
-
+    // Atualizar projéteis
+    for (auto it = projeteis.begin(); it != projeteis.end();) {
+        it->atualizar(deltaTempo);
+        if (it->foraDaTela(janela.getSize())) {
+            it = projeteis.erase(it); // Remove projétil se sair da tela
+        } else {
+            ++it;
+        }
+    }
 }
 
 // Renderiza tudo na tela
@@ -54,18 +74,24 @@ void Jogo::renderizar() {
     janela.clear();
     janela.draw(chao);
 
-    // se o jogo não acaboui, desenha o jogador e o inimigo
     if (!jogador.isGameOver()) {
         janela.draw(inimigo.getSprite());
         janela.draw(jogador.getSprite());
+
         for (const auto& equipamento : jogador.getEquipamentos()) {
             janela.draw(equipamento);
         }
+
         janela.draw(jogador.getTextoVidas());
+
+        // Renderizar projéteis
+        for (const auto& proj : projeteis) {
+            proj.desenhar(janela);
+        }
     } else {
-        // Se o jogo acabou, desenha o texto "GAME OVER!!!@!@"
         janela.draw(textoGameOver);
     }
+
     janela.display();
 }
 
