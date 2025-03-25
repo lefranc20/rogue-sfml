@@ -1,8 +1,8 @@
 #include "Projetil.h"
 
 Projetil::Projetil(sf::Vector2f posJogador, sf::Vector2f destino) {
-    forma.setRadius(5.f);
-    forma.setFillColor(sf::Color::White);
+    forma.setRadius(10.f);
+    forma.setFillColor(sf::Color::Blue);
 
     // Define a origem no centro do círculo
     forma.setOrigin(forma.getRadius(), forma.getRadius());
