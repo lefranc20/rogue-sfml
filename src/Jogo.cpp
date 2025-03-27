@@ -2,19 +2,19 @@
 
 Jogo::Jogo() : janela(sf::VideoMode(JANELA_LARGURA, JANELA_ALTURA), "Jogo em SFML!"), inimigo(100.f, 100.f) 
 {
-    if (!texturaChao.loadFromFile("assets/Ground_01.png")) {
+    if (!texturaChao.loadFromFile(obterCaminhoAsset("Ground_01.png"))) {
         std::cerr << "Erro ao carregar textura do chão!" << std::endl;
     }
     chao.setSize(sf::Vector2f(JANELA_LARGURA, JANELA_ALTURA));
     chao.setTexture(&texturaChao);
 
-    jogador.adicionarEquipamento("assets/equipamentos/HEAD_hair_blonde.png"); // cabelo
-    jogador.adicionarEquipamento("assets/equipamentos/LEGS_plate_armor_pants.png"); // pernas
-    jogador.adicionarEquipamento("assets/equipamentos/TORSO_chain_armor_jacket_purple.png"); // torso
-    jogador.adicionarEquipamento("assets/equipamentos/TORSO_leather_armor_shoulders.png"); // ombro
-    jogador.adicionarEquipamento("assets/equipamentos/FEET_shoes_brown.png"); // pés
-    jogador.adicionarEquipamento("assets/equipamentos/BELT_leather.png"); // cinto
- 
+    jogador.adicionarEquipamento(obterCaminhoAsset("equipamentos/HEAD_hair_blonde.png")); // cabelo
+    jogador.adicionarEquipamento(obterCaminhoAsset("equipamentos/LEGS_plate_armor_pants.png")); // pernas
+    jogador.adicionarEquipamento(obterCaminhoAsset("equipamentos/TORSO_chain_armor_jacket_purple.png")); // torso
+    jogador.adicionarEquipamento(obterCaminhoAsset("equipamentos/TORSO_leather_armor_shoulders.png")); // ombro
+    jogador.adicionarEquipamento(obterCaminhoAsset("equipamentos/FEET_shoes_brown.png")); // pés
+    jogador.adicionarEquipamento(obterCaminhoAsset("equipamentos/BELT_leather.png")); // cinto
+
     inicializarGameOver();
 }
 
@@ -106,7 +106,7 @@ void Jogo::renderizar() {
 }
 
 void Jogo::inicializarGameOver() {
-    if (!fonteGameOver.loadFromFile("assets/VT323-Regular.ttf")) {
+    if (!fonteGameOver.loadFromFile(obterCaminhoAsset("VT323-Regular.ttf"))) {
         std::cerr << "Erro ao carregar fonte!" << std::endl;
     }
     textoGameOver.setFont(fonteGameOver);

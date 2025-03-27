@@ -2,7 +2,7 @@
 
 // CONSTRUTOR: Inicializa posição, textura e sprite
 Jogador::Jogador() {
-    if (!textura.loadFromFile("assets/jogador.png")) {
+    if (!textura.loadFromFile(obterCaminhoAsset("jogador.png"))) {
         std::cerr << "Erro ao carregar textura do jogador!" << std::endl;
     }
 
@@ -17,7 +17,7 @@ Jogador::Jogador() {
     sprite.setPosition(400.f, 300.f); // Define a posição inicial
 
     // Carregamento daa fonte e configuração do texto de vidas
-    if (!fonte.loadFromFile("assets/VT323-Regular.ttf")) {
+    if (!fonte.loadFromFile(obterCaminhoAsset("VT323-Regular.ttf"))) {
         std::cerr << "Erro ao carregar fonte!" << std::endl;
     }
     textoVidas.setFont(fonte);
@@ -119,6 +119,7 @@ const std::vector<sf::Sprite>& Jogador::getEquipamentos() const {
 // Adiciona um equipamento ao jogador
 void Jogador::adicionarEquipamento(const std::string& caminhoTextura) {
     std::shared_ptr<sf::Texture> texturaEquipamento = std::make_shared<sf::Texture>();
+    
     if (!texturaEquipamento->loadFromFile(caminhoTextura)) {
         std::cerr << "Erro ao carregar textura do equipamento: " << caminhoTextura << std::endl;
         return;

@@ -2,6 +2,7 @@
 #define JOGADOR_H
 
 #include <SFML/Graphics.hpp>
+#include "Caminho.h"
 #include <iostream>
 #include <vector>
 #include <memory> // Para shared_ptr

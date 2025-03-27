@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Caminho.h"
 #include "Jogador.h"
 #include "Inimigo.h"
 #include "Projetil.h"

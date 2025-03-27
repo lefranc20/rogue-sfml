@@ -2,7 +2,7 @@
 
 // Construtor
 Inimigo::Inimigo(float x, float y) {
-    if (!textura.loadFromFile("assets/inimigo.png")) {
+    if (!textura.loadFromFile(obterCaminhoAsset("inimigo.png"))) {
         std::cerr << "Erro ao carregar textura do inimigo!" << std::endl;
     }
     sprite.setTexture(textura);
