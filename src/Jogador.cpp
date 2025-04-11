@@ -100,7 +100,6 @@ void Jogador::atualizar(float deltaTime) {
 }
 
 
-
 // Retorna o sprite para ser desenhado no jogo
 sf::Sprite& Jogador::getSprite() {
     return sprite;
@@ -109,6 +108,14 @@ sf::Sprite& Jogador::getSprite() {
 // Método para pegar a posição do jogador. Utilizado para o cálculo de movimento do Inimigo até ele.
 sf::Vector2f Jogador::getPosicao() {
     return sprite.getPosition();
+}
+
+// Métod opara definir a posição do jogador na tela inicial
+void Jogador::setPosicao(const sf::Vector2f& pos) {
+    sprite.setPosition(pos);
+    for (auto& equipamento : spritesEquipamentos) {
+        equipamento.setPosition(pos);
+    }
 }
 
 // retorna os sprites dos equipamentos
@@ -174,4 +181,14 @@ int Jogador::getVidas() const {
 
 int Jogador::getPontos() const {
     return pontos;
+}
+
+void Jogador::desenhar(sf::RenderWindow& janela) {
+    janela.draw(sprite);
+    // NÃO desenha texto aqui
+}
+
+void Jogador::desenharHUD(sf::RenderWindow& janela) {
+    janela.draw(textoPontos);
+    janela.draw(textoVidas);
 }

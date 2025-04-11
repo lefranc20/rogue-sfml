@@ -3,19 +3,20 @@
 
 #include <SFML/Graphics.hpp>
 #include "Caminho.h"
+#include "Constantes.h"
 #include <iostream>
 #include <vector>
 #include <memory> // Para shared_ptr
 #include <sstream> // Necessário para converter número em string
-
-const unsigned JANELA_LARGURA = 800;
-const unsigned JANELA_ALTURA = 600;
 
 class Jogador {
 public:
     Jogador();
     void atualizar(float deltaTime);
     void adicionarEquipamento(const std::string& caminhoTextura);
+    void setPosicao(const sf::Vector2f& pos);
+    void desenharHUD(sf::RenderWindow& janela);
+    void desenhar(sf::RenderWindow& janela);
 
     sf::Sprite& getSprite();
     const std::vector<sf::Sprite>& getEquipamentos() const;

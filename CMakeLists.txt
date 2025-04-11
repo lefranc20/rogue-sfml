@@ -15,6 +15,7 @@ set(SOURCES
     ${SOURCE_DIR}/Jogador.cpp
     ${SOURCE_DIR}/Inimigo.cpp
     ${SOURCE_DIR}/Projetil.cpp
+    ${SOURCE_DIR}/Mundo.cpp
 )
 
 # Definição do executável

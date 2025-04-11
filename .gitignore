@@ -1,5 +1,7 @@
 /build/
 /bin/
+.vscode/settings.json
+settings.json
 *.o
 *.exe
 *.out

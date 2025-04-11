@@ -3,10 +3,11 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Caminho.h"
-#include "Jogador.h"
+
+#include "Mundo.h"
 #include "Inimigo.h"
-#include "Projetil.h"
+#include "Jogador.h"
+#include "Caminho.h"
 
 class Jogo {
 public:
@@ -14,21 +15,15 @@ public:
     void executar();
 
 private:
-    void processarEventos();
-    void atualizar(float deltaTempo);
-    void renderizar();
-    void inicializarGameOver();
-
     sf::RenderWindow janela;
-    sf::Texture texturaChao;
-    sf::RectangleShape chao;
-    Jogador jogador;
-    Inimigo inimigo;
-    std::vector<Projetil> projeteis;
-
+    Mundo mundo; // <<< ADICIONE ISSO AQUI
     sf::Font fonteGameOver;
     sf::Text textoGameOver;
     sf::Text textoMensagenzinha;
+
+    void processarEventos();
+    void renderizar();
+    void inicializarGameOver();
 };
 
 #endif // JOGO_H
