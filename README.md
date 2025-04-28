@@ -1,11 +1,6 @@
-Jogo em desenvolvimento utilizando SFML.
+Jogo em desenvolvimento utilizando SFML e conceitos de ECS.
 
-# Compilação
-
-## Makefile
-Compile e rode com: `make` e `make run` (`make clean` para limpar)
-
-## CMakeLists
+## Compilação (CMakeLists)
 mkdir -p build
 cd build
 cmake ..
