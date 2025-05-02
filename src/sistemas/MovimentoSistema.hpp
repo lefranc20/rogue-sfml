@@ -12,7 +12,12 @@ public:
         if (!transform) return;
 
         float velocidade = 250.0f; // pixels por segundo
+        float velocidadeCorrida = velocidade * 3; // Velocidade de Corrida (pixels por segundo)
 
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+            velocidade = velocidadeCorrida;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
+            velocidade = velocidadeCorrida;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
             transform->posicao.y -= velocidade * dt;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
