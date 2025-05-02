@@ -14,6 +14,7 @@ int main() {
     // View do minimapa
     sf::View viewMiniMapa = view;
     viewMiniMapa.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
+    sf::RectangleShape bordaMinimapa;
 
     // Criando o mundo e a entidade jogador
     Mundo mundo;
@@ -45,11 +46,27 @@ int main() {
         janela.setView(view);
         jogadorShape.setPosition(transformJogador->posicao);
         janela.draw(jogadorShape);
+        
+        // Adicionando uma bordinha cinza para o minimapa (apenas de teste)
+        janela.setView(janela.getDefaultView()); // Reset para coordenadas da janela
+        sf::Vector2u tamanhoJanela = janela.getSize();
+        sf::FloatRect viewport = viewMiniMapa.getViewport();
+    
+        bordaMinimapa.setPosition(800 * 0.75f + 1, 0 + 1);  // empurra um pouco mais para dentro
+        bordaMinimapa.setSize(sf::Vector2f(200 - 2, 150 - 2)); // 25% de 800x600 é 200x150
+        bordaMinimapa.setFillColor(sf::Color::Transparent);
+        bordaMinimapa.setOutlineThickness(2);
+        bordaMinimapa.setOutlineColor(sf::Color(150, 150, 150)); // RGB para Cinza claro
+        janela.draw(bordaMinimapa);
 
         // --- View do minimapa ---
         janela.setView(viewMiniMapa);
         janela.draw(jogadorShape); // Desenha o jogador também na visão do minimapa
+        
+        janela.setView(janela.getDefaultView()); // volta para a view padrão para desenhar a borda na posição correta
 
+
+        // Display final
         janela.display();
     }
 
